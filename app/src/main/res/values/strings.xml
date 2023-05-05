@@ -16,4 +16,8 @@
     <string name="email_address">Email Address</string>
     <string name="reset_password">Submit</string>
 
+    <!-- UserProfile -->
+    <string name="user_profile">User Profile</string>
+    <string name="name_hint">Full Name</string>
+    <string name="save_profile">Save Profile</string>
 </resources>
