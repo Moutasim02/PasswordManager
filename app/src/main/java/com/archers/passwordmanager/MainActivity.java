@@ -4,18 +4,20 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationBarView;
 
 
 public class MainActivity extends AppCompatActivity {
-    BottomNavigationView navigationView;
     FloatingActionButton floatingActionButton;
+    BottomNavigationView navigationView;
+    MaterialToolbar topAppBar;
+    Fragment dynamicFragment;
+    MenuItem searchItem, syncItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,38 +25,54 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         floatingActionButton = findViewById(R.id.floatingActionButton);
         navigationView = findViewById(R.id.bottom_navigation);
+        topAppBar = findViewById(R.id.topAppBar);
+        searchItem = topAppBar.getMenu().findItem(R.id.search);
+        syncItem = topAppBar.getMenu().findItem(R.id.sync);
+
+        // Default Fragment Injector
+        Fragment dynamicFragment = new VaultFragment();
+        showFragment(dynamicFragment);
+
         addNavBarListener();
     }
 
     private void addNavBarListener() {
-        navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                Fragment dynamicFragment = null;
+        navigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
 
-                if (id == R.id.my_vault) {
-                    dynamicFragment = new VaultFragment();
-                    floatingActionButton.setVisibility(View.VISIBLE);
-                } else if (id == R.id.generator) {
+            if (id == R.id.my_vault) {
+                dynamicFragment = new VaultFragment();
+                changeTopBarItemsVisibility(true);
+                floatingActionButton.setVisibility(View.VISIBLE);
+            } else if (id == R.id.generator) {
 //                    dynamicFragment = new GeneratorFragment();
-                    floatingActionButton.setVisibility(View.INVISIBLE);
-                } else if (id == R.id.settings) {
+                changeTopBarItemsVisibility(false);
+                floatingActionButton.setVisibility(View.INVISIBLE);
+            } else if (id == R.id.settings) {
 //                    dynamicFragment = new SettingsFragment();
-                    floatingActionButton.setVisibility(View.INVISIBLE);
-                } else if (id == R.id.profile) {
+                changeTopBarItemsVisibility(false);
+                floatingActionButton.setVisibility(View.INVISIBLE);
+            } else if (id == R.id.profile) {
 //                    dynamicFragment = new ProfileFragment();
-                    floatingActionButton.setVisibility(View.INVISIBLE);
-                }
-
-                if (dynamicFragment != null) {
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fragment_container, dynamicFragment)
-                            .commit();
-                }
-                return true;
+                changeTopBarItemsVisibility(false);
+                floatingActionButton.setVisibility(View.INVISIBLE);
             }
+
+            if (dynamicFragment != null)
+                showFragment(dynamicFragment);
+            return true;
         });
+    }
+
+    private void changeTopBarItemsVisibility(boolean showIcons) {
+        searchItem.setVisible(showIcons);
+        syncItem.setVisible(showIcons);
+    }
+
+    private void showFragment(Fragment dynamicFragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, dynamicFragment)
+                .commit();
     }
 }
