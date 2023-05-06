@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/GeneratedPassword"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:hint="@string/generated_password" />
+
+
+    <Button
+        android:id="@+id/CopyBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="75dp"
+        android:layout_toEndOf="@+id/GeneratedPassword"
+        android:background="@color/material_on_background_disabled"
+        android:drawableBottom="@drawable/baseline_content_copy_24"
+        android:hint="@string/copy" />
+
+    <Button
+        android:id="@+id/ChangeBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="75dp"
+        android:layout_toEndOf="@+id/CopyBtn"
+        android:background="@color/material_on_background_disabled"
+        android:drawableBottom="@drawable/baseline_sync_24"
+        android:hint="@string/regenerate" />
+
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/UpCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GeneratedPassword"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:checked="true"
+        android:text="@string/upperCase" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/LowCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/UpCheck"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/lowerCase" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/NumCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LowCheck"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/includeNumbers" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/CharCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/NumCheck"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/includeChars" />
+
+    <TextView
+        android:id="@+id/PassLenTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CharCheck"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/password_length"
+        android:textColor="@color/black"
+
+        />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/PassLenTV"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:autofillHints=""
+        android:contentDescription="@string/slider_desc"
+        android:value="20.0"
+        android:valueFrom="0.0"
+        android:valueTo="40.0" />
+
+    <Button
+        android:id="@+id/GenerateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/slider"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/generate"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>

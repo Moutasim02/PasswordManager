@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewItemFragment">
+
+    <TextView
+        android:id="@+id/ViewMessageTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/txtViewItem"
+        android:textColor="@color/black"
+        android:textStyle="bold|italic" />
+
+
+    <TextView
+        android:id="@+id/NameTV"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/ViewMessageTV"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="20dp"
+        android:hint="@string/strItemName"
+        android:textColor="@color/black" />
+
+
+    <TextView
+        android:id="@+id/UserNameTV"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/NameTV"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="@string/UserNameET" />
+
+
+    <TextView
+        android:id="@+id/PassTV"
+        android:layout_width="255dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/UserNameTV"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="70dp"
+        android:hint="@string/PassET"
+        app:endIconMode="password_toggle" />
+
+    <Button
+        android:id="@+id/PassCopyBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="200dp"
+        android:layout_toEndOf="@id/PassTV"
+        android:background="@color/material_on_background_disabled"
+        android:drawableBottom="@drawable/baseline_content_copy_24" />
+
+
+    <TextView
+        android:id="@+id/DomainTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/PassTV"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="@string/url_hint"
+        android:textColor="@color/black" />
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Main content -->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+            android:id="@+id/floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="12dp"
+            android:contentDescription="@string/fab_content_desc"
+            app:srcCompat="@drawable/baseline_edit_24" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</RelativeLayout>
