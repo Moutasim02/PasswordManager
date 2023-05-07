@@ -1,68 +1,82 @@
 package com.archers.passwordmanager;
-/*
-* `onCreate()` is a method that is called when the fragment is first created.
-*  It is used to perform any initialization that needs to be done before the fragment is displayed to the user.
-*  This method is typically used to initialize variables, set up listeners, and perform other setup tasks.
-
-* `onCreateView()` is a method that is called when the fragment's UI is being created.
-*  It is used to inflate the fragment's layout XML file and create the view hierarchy that will
-*  be displayed to the user. This method is typically used to inflate the layout XML file, find and
-*  initialize views, and set up any necessary adapters or listeners.*/
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import java.util.ArrayList;
 
 public class VaultFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ArrayList<VaultItem> vaultItems;
 
     public VaultFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MyVault.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static VaultFragment newInstance(String param1, String param2) {
-        VaultFragment fragment = new VaultFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        vaultItems = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_vault, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_vault, container, false);
+
+        // Get the LinearLayout that will hold the vault items
+        LinearLayout vaultLayout = view.findViewById(R.id.vaultLayout);
+
+        // Create a new VaultItem and add it to the list
+        // Create 15 new VaultItem objects
+        VaultItem item1 = new VaultItem("Item 1");
+        VaultItem item2 = new VaultItem("Item 2");
+        VaultItem item3 = new VaultItem("Item 3");
+        VaultItem item4 = new VaultItem("Item 4");
+        VaultItem item5 = new VaultItem("Item 5");
+        VaultItem item6 = new VaultItem("Item 6");
+        VaultItem item7 = new VaultItem("Item 7");
+        VaultItem item8 = new VaultItem("Item 8");
+        VaultItem item9 = new VaultItem("Item 9");
+        VaultItem item10 = new VaultItem("Item 10");
+        VaultItem item11 = new VaultItem("Item 11");
+        VaultItem item12 = new VaultItem("Item 12");
+        VaultItem item13 = new VaultItem("Item 13");
+        VaultItem item14 = new VaultItem("Item 14");
+        VaultItem item15 = new VaultItem("Item 15");
+
+        // Add the 15 VaultItem objects to the vaultItems ArrayList
+        vaultItems.add(item1);
+        vaultItems.add(item2);
+        vaultItems.add(item3);
+        vaultItems.add(item4);
+        vaultItems.add(item5);
+        vaultItems.add(item6);
+        vaultItems.add(item7);
+        vaultItems.add(item8);
+        vaultItems.add(item9);
+        vaultItems.add(item10);
+        vaultItems.add(item11);
+        vaultItems.add(item12);
+        vaultItems.add(item13);
+        vaultItems.add(item14);
+        vaultItems.add(item15);
+
+        // Inflate the item_vault.xml layout for each item in the list and add it to the LinearLayout
+        for (VaultItem item : vaultItems) {
+            View itemLayout = inflater.inflate(R.layout.item_vault, null);
+            TextView itemName = itemLayout.findViewById(R.id.vaultItemName);
+            TextView itemDate = itemLayout.findViewById(R.id.vaultItemDate);
+            itemName.setText(item.getName());
+            itemDate.setText(item.getDate());
+            vaultLayout.addView(itemLayout);
+        }
+
+        return view;
     }
 }

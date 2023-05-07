@@ -43,7 +43,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
-        android:hint="@string/UserNameET">
+        android:hint="@string/edtTxtUserName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
