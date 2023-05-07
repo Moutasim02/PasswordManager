@@ -45,15 +45,15 @@ public class MainActivity extends AppCompatActivity {
                 changeTopBarItemsVisibility(true);
                 floatingActionButton.setVisibility(View.VISIBLE);
             } else if (id == R.id.generator) {
-//                    dynamicFragment = new GeneratorFragment();
+                    dynamicFragment = new GeneratorFragment();
                 changeTopBarItemsVisibility(false);
                 floatingActionButton.setVisibility(View.INVISIBLE);
             } else if (id == R.id.settings) {
-//                    dynamicFragment = new SettingsFragment();
+                    dynamicFragment = new SettingsFragment();
                 changeTopBarItemsVisibility(false);
                 floatingActionButton.setVisibility(View.INVISIBLE);
             } else if (id == R.id.profile) {
-//                    dynamicFragment = new ProfileFragment();
+                    dynamicFragment = new UserProfileFragment();
                 changeTopBarItemsVisibility(false);
                 floatingActionButton.setVisibility(View.INVISIBLE);
             }

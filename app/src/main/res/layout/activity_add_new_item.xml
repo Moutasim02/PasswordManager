@@ -6,7 +6,7 @@
     android:id="@+id/addNewItem"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    android:layout_margin="15dp"
     android:background="@color/white"
     android:paddingTop="50dp"
     tools:context=".AddNewItemActivity">
