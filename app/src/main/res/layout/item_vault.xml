@@ -15,26 +15,42 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/vaultItemName"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Vault Item Name"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginStart="16dp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp" />
 
         <TextView
-            android:id="@+id/vaultItemDate"
-            android:layout_width="wrap_content"
+            android:id="@+id/vaultItemDomain"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jan 1, 2022"
+            android:text="google.com"
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            android:layout_marginStart="16dp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp" />
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/vaultItemDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jan 1, 2023"
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="end" />
+
 </com.google.android.material.card.MaterialCardView>
