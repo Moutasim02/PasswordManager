@@ -2,11 +2,17 @@ package com.archers.passwordmanager;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.materialswitch.MaterialSwitch;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +20,7 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class SettingsFragment extends Fragment {
+    private MaterialSwitch darkSwitch;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +65,20 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        darkSwitch = view.findViewById(R.id.dark_switch);
+
+        // Set the initial state of the switch based on the current night mode
+        int currentNightMode = AppCompatDelegate.getDefaultNightMode();
+        darkSwitch.setChecked(currentNightMode == AppCompatDelegate.MODE_NIGHT_YES);
+
+        // Set an OnCheckedChangeListener to handle switch state changes
+        darkSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int newNightMode = isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO;
+            AppCompatDelegate.setDefaultNightMode(newNightMode);
+            MainActivity.navigationView.setSelectedItemId(R.id.my_vault);
+        });
+
+        return view;
     }
 }

@@ -13,8 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class MainActivity extends AppCompatActivity {
-    FloatingActionButton floatingActionButton;
-    BottomNavigationView navigationView;
+    public static BottomNavigationView navigationView;
     MaterialToolbar topAppBar;
     Fragment dynamicFragment;
     MenuItem searchItem, syncItem;
@@ -23,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        floatingActionButton = findViewById(R.id.floatingActionButton);
         navigationView = findViewById(R.id.bottom_navigation);
         topAppBar = findViewById(R.id.topAppBar);
         searchItem = topAppBar.getMenu().findItem(R.id.search);
@@ -36,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         addNavBarListener();
     }
 
+
     private void addNavBarListener() {
         navigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -43,19 +42,15 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.my_vault) {
                 dynamicFragment = new VaultFragment();
                 changeTopBarItemsVisibility(true);
-                floatingActionButton.setVisibility(View.VISIBLE);
             } else if (id == R.id.generator) {
-                    dynamicFragment = new GeneratorFragment();
+                dynamicFragment = new GeneratorFragment();
                 changeTopBarItemsVisibility(false);
-                floatingActionButton.setVisibility(View.INVISIBLE);
             } else if (id == R.id.settings) {
-                    dynamicFragment = new SettingsFragment();
+                dynamicFragment = new SettingsFragment();
                 changeTopBarItemsVisibility(false);
-                floatingActionButton.setVisibility(View.INVISIBLE);
             } else if (id == R.id.profile) {
-                    dynamicFragment = new UserProfileFragment();
+                dynamicFragment = new UserProfileFragment();
                 changeTopBarItemsVisibility(false);
-                floatingActionButton.setVisibility(View.INVISIBLE);
             }
 
             if (dynamicFragment != null)

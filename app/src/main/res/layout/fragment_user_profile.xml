@@ -15,7 +15,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
         android:text="This is where you edit your profile info"
-        android:textColor="@color/gray"
+        android:textColor="@color/md_theme_light_secondary"
         android:textSize="15sp"
         android:textStyle="italic" />
 
@@ -49,7 +49,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            app:layout_constraintWidth_max="400dp" />
+            app:layout_constraintWidth_max="400dp"
+            android:enabled="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 

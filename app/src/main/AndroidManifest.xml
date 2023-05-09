@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
+        <meta-data
+            android:name="android.app.nightmode"
+            android:resource="@style/AppTheme" />
         <activity
             android:name=".SplashActivity"
             android:exported="false" />
@@ -25,7 +28,7 @@
             android:name=".OneTimePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".AddNewItemActivity"
+            android:name=".AddNewItemFragment"
             android:exported="true" />
         <activity
             android:name=".ForgotPasswordActivity"

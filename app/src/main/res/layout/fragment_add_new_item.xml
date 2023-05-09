@@ -7,9 +7,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="15dp"
-    android:background="@color/white"
-    android:paddingTop="50dp"
-    tools:context=".AddNewItemActivity">
+    tools:context=".AddNewItemFragment">
+
+    <TextView
+        android:id="@+id/txtAddNewItemHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/add_new_item_head"
+        android:textColor="@color/md_theme_light_secondary"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
 
     <TextView
         android:id="@+id/txtAddNameHint"
@@ -18,8 +27,9 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
         android:text="@string/strItemName"
-        android:textColor="@color/gray"
+        android:textColor="@color/md_theme_light_secondary"
         android:textSize="15sp"
+        android:layout_below="@+id/txtAddNewItemHint"
         android:textStyle="italic" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -45,7 +55,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
         android:text="@string/url_hint"
-        android:textColor="@color/gray"
+        android:textColor="@color/md_theme_light_secondary"
         android:textSize="15sp"
         android:textStyle="italic" />
 
@@ -72,7 +82,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
         android:text="@string/strEmailHint"
-        android:textColor="@color/gray"
+        android:textColor="@color/md_theme_light_secondary"
         android:textSize="15sp"
         android:textStyle="italic" />
 
@@ -99,7 +109,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
         android:text="@string/strPasswordHint"
-        android:textColor="@color/gray"
+        android:textColor="@color/md_theme_light_secondary"
         android:textSize="15sp"
         android:textStyle="italic" />
 
