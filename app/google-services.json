@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "119931200615",
+    "project_id": "passmngr-7ca1a",
+    "storage_bucket": "passmngr-7ca1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119931200615:android:9c361ad841bfb2f7faa0c2",
+        "android_client_info": {
+          "package_name": "com.archers.passwordmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119931200615-679o9eeiffdqdkclelphp5n4dttsri5v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcXbvXLIZEXA2UXiG3W50YiOXwdoxixeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119931200615-4ao51ob2vhbju1pum2h74qg4ilcgovl6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

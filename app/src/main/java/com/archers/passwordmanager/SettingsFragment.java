@@ -1,18 +1,18 @@
 package com.archers.passwordmanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +20,8 @@ import com.google.android.material.materialswitch.MaterialSwitch;
  * create an instance of this fragment.
  */
 public class SettingsFragment extends Fragment {
-    private MaterialSwitch darkSwitch;
+    FirebaseAuth auth;
+    TextView signOutNow;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,6 +57,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -66,7 +68,7 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        darkSwitch = view.findViewById(R.id.dark_switch);
+        MaterialSwitch darkSwitch = view.findViewById(R.id.dark_switch);
 
         // Set the initial state of the switch based on the current night mode
         int currentNightMode = AppCompatDelegate.getDefaultNightMode();
@@ -79,6 +81,13 @@ public class SettingsFragment extends Fragment {
             MainActivity.navigationView.setSelectedItemId(R.id.my_vault);
         });
 
+        signOutNow = view.findViewById(R.id.sign_out_now);
+        signOutNow.setOnClickListener((v) -> {
+            auth.signOut();
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        });
         return view;
     }
 }

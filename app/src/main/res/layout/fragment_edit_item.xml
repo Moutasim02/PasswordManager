@@ -95,7 +95,7 @@
         android:layout_below="@+id/DomainET"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="305dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:text="@string/save" />
 
 </RelativeLayout>
