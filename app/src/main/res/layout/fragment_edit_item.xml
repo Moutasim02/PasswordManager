@@ -8,7 +8,7 @@
     tools:context=".EditItemFragment">
 
     <TextView
-        android:id="@+id/EditMessageTV"
+        android:id="@+id/editMessageTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -22,7 +22,7 @@
         android:id="@+id/NameET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/EditMessageTV"
+        android:layout_below="@+id/editMessageTV"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="20dp"
@@ -53,7 +53,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/PassET"
+        android:id="@+id/passET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/UserNameET"
@@ -73,10 +73,10 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/DomainET"
+        android:id="@+id/domainET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/PassET"
+        android:layout_below="@+id/passET"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
@@ -89,10 +89,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/SaveBtn"
+        android:id="@+id/saveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/DomainET"
+        android:layout_below="@+id/domainET"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="305dp"
         android:layout_marginTop="40dp"

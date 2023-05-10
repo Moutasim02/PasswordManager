@@ -1,5 +1,6 @@
 package com.archers.passwordmanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +62,22 @@ public class EditItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        TextView nameET, userNameET, passET, domainET;
+        Button saveBtn;
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_item, container, false);
+        nameET = view.findViewById(R.id.NameET);
+        userNameET = view.findViewById(R.id.UserNameET);
+        passET = view.findViewById(R.id.passET);
+        domainET = view.findViewById(R.id.domainET);
+        saveBtn = view.findViewById(R.id.saveBtn);
+
+        saveBtn.setOnClickListener((v) -> {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        });
+        return view;
     }
 }

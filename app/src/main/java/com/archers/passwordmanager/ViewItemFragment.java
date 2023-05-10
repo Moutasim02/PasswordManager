@@ -1,12 +1,16 @@
 package com.archers.passwordmanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +18,7 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ViewItemFragment extends Fragment {
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +63,29 @@ public class ViewItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        TextView nameTV, userNameTV, passTV, domainTV;
+        Button passCopyBtn, editFloatingActionButton;
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_view_item, container, false);
+
+        nameTV = view.findViewById(R.id.NameTV);
+        userNameTV = view.findViewById(R.id.UserNameTV);
+        passTV = view.findViewById(R.id.PassTV);
+        domainTV = view.findViewById(R.id.DomainTV);
+        editFloatingActionButton = view.findViewById(R.id.floatingActionButton);
+
+        editFloatingActionButton.setOnClickListener((v) -> {
+            Fragment fragment = new EditItemFragment();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
+
+//        passCopyBtn.setOnClickListener((v) -> {
+//
+//        });
+        return view;
     }
 }
