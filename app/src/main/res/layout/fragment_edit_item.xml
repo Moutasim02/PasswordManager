@@ -88,6 +88,17 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/deleteItemText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginTop="15dp"
+        android:text="@string/delete_item"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_below="@+id/saveBtn"
+        android:layout_centerHorizontal="true"
+        />
     <Button
         android:id="@+id/saveBtn"
         android:layout_width="wrap_content"

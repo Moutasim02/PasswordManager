@@ -5,14 +5,32 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/password_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Your password will appear here"
-        android:textSize="18sp" />
+        android:orientation="horizontal"
+        android:padding="1dp">
 
+        <TextView
+            android:id="@+id/password_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:text="Your password will appear here"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/PassCopyBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_content_copy_24"
+            android:background="#00191C1E"
+            android:importantForAccessibility="no"
+            />
+        <!--android:visibility="invisible"-->
+
+    </LinearLayout>
     <com.google.android.material.slider.Slider
         android:id="@+id/slider"
         android:layout_marginTop="5dp"
@@ -22,7 +40,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/slider_desc"
         android:value="20"
-        android:valueFrom="0"
+        android:valueFrom="4"
         android:valueTo="40"
         android:stepSize="1"
         android:autofillHints=""

@@ -1,6 +1,5 @@
 package com.archers.passwordmanager;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private Button signInButton;
-    TextView signUpInstead;
+    private TextView signUpInstead, forgetPassword;
     private TextInputLayout emailTextField, passwordTextField;
 
 
@@ -30,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         passwordTextField = findViewById(R.id.passwordTextField);
         signInButton = findViewById(R.id.loginButton);
         signUpInstead = findViewById(R.id.sign_up_instead);
+        forgetPassword = findViewById(R.id.forgotPasswordText);
+
 
         signUpInstead.setOnClickListener((v) -> {
             Intent intent = new Intent(this, SignUpActivity.class);
@@ -49,6 +50,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        forgetPassword.setOnClickListener((v) -> {
+            Intent intent = new Intent(this, ForgotPasswordActivity.class);
+            startActivity(intent);
+        });
 
     }
 
