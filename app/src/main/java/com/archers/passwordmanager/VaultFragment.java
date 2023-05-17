@@ -20,6 +20,7 @@ import java.util.Map;
 public class VaultFragment extends Fragment {
     private Map<String, Object> vaultItems;
     FirebaseFirestore db;
+
     public VaultFragment() {
     }
 
@@ -44,7 +45,6 @@ public class VaultFragment extends Fragment {
 
         // Get the LinearLayout that will hold the vault items
         LinearLayout vaultLayout = view.findViewById(R.id.vaultLayout);
-
 
         return view;
     }

@@ -1,64 +1,79 @@
 package com.archers.passwordmanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UserProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+
+
 public class UserProfileFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    FirebaseAuth auth;
+    TextInputEditText editTextName, editTextEmail, editTextNewPassword, editTextCurrentPassword;
+    String userName, userEmail;
+    Button buttonSaveProfile;
 
     public UserProfileFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UserProfile.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UserProfileFragment newInstance(String param1, String param2) {
-        UserProfileFragment fragment = new UserProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        auth = FirebaseAuth.getInstance();
+        userName = auth.getCurrentUser().getDisplayName();
+        userEmail = auth.getCurrentUser().getEmail();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
+        buttonSaveProfile = view.findViewById(R.id.buttonSaveProfile);
+        editTextName = view.findViewById(R.id.editTextName);
+        editTextEmail = view.findViewById(R.id.editTextEmail);
+        editTextCurrentPassword = view.findViewById(R.id.editTextCurrentPassword);
+        editTextNewPassword = view.findViewById(R.id.editTextNewPassword);
+        editTextName.setText(userName);
+        editTextEmail.setText(userEmail);
+
+        buttonSaveProfile.setOnClickListener((khaled) -> {
+            FirebaseUser user = auth.getCurrentUser(); // used to make specific user profile and data
+            UserProfileChangeRequest upc = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(String.valueOf(editTextName.getText()))
+                    .build();
+
+            if (!user.getDisplayName().equals(String.valueOf(editTextName.getText()))) {
+                user.updateProfile(upc);
+                Toast.makeText(getContext(), "Username Updated!", Toast.LENGTH_SHORT).show();
+            }
+
+            if (editTextCurrentPassword.getText().length() != 0 && editTextNewPassword.getText().length() == 0) {
+                Toast.makeText(getContext(), "Add new password!", Toast.LENGTH_SHORT).show();
+            }
+
+            if (String.valueOf(editTextCurrentPassword.getText()).equals(String.valueOf(editTextNewPassword.getText()))) {
+                Toast.makeText(getContext(), "Same Password!", Toast.LENGTH_SHORT).show();
+            } else if (editTextCurrentPassword.getText().length() != 0 && editTextNewPassword.getText().length() != 0) {
+                user.updatePassword(String.valueOf(editTextNewPassword.getText()));
+                Toast.makeText(getContext(), "Password Updated!", Toast.LENGTH_SHORT).show();
+                auth.signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+
+        });
+        return view;
     }
 }

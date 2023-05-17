@@ -46,14 +46,27 @@
         android:autofillHints=""
         />
 
-    <TextView
-        android:id="@+id/length_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+    >
+    <TextView
+        android:id="@+id/passLength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Password length: 20"
+        android:text="Password length: "
         android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/length_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="20"
+        android:textSize="16sp" />
+
+    </LinearLayout>
     <CheckBox
         android:id="@+id/uppercase_checkbox"
         android:layout_width="match_parent"

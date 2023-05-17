@@ -19,36 +19,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AddNewItemFragment extends Fragment {
     FirebaseFirestore db;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // ToDo: Add item to FireStore
+    // Each User has a collection, item will be stored in a document.
+    // document contains fields, ex: email, name, pass, domain.
 
     public AddNewItemFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Edit.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AddNewItemFragment newInstance(String param1, String param2) {
-        AddNewItemFragment fragment = new AddNewItemFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -56,10 +31,6 @@ public class AddNewItemFragment extends Fragment {
         super.onCreate(savedInstanceState);
         db = FirebaseFirestore.getInstance();
 
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -80,7 +51,7 @@ public class AddNewItemFragment extends Fragment {
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
             getActivity().finish();
-            Toast.makeText(getActivity(),"Item Saved", LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Item Saved", LENGTH_LONG).show();
         });
         return view;
     }

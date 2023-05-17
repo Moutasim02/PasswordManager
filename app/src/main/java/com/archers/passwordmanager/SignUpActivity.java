@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth auth;
@@ -85,11 +86,16 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void createUserAccount(String email, String password) {
+
         // Create a new user with the email and password
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUpActivity.this, task -> {
+
             if (task.isSuccessful()) {
                 // Sign in success, update UI with the signed-in user's information
                 FirebaseUser user = auth.getCurrentUser(); // used to make specific user profile and data
+                UserProfileChangeRequest upc = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(String.valueOf(usernameTextField.getEditText().getText())).build();
+                user.updateProfile(upc);
 
                 Toast.makeText(SignUpActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
                 // TODO: Add code to update the UI or navigate to the next screen

@@ -35,15 +35,14 @@
             android:exported="false" />
         <activity
             android:name=".AddNewItemFragment"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ForgotPasswordActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:screenOrientation="locked">
-
         </activity>
     </application>
 

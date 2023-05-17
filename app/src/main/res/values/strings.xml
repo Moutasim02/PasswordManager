@@ -56,4 +56,5 @@
     <string name="add_new_item_head">Fill in the your item details, you can always edit it later</string>
     <string name="delete_item">Delete Item</string>
     <string name="currentPassword">Current Password</string>
+    <string name="new_password">New password</string>
 </resources>
