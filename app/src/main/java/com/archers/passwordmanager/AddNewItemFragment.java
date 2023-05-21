@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,14 +68,20 @@ public class AddNewItemFragment extends Fragment {
             String url = String.valueOf(editTextUrl.getText());
             String mailOrUsername = String.valueOf(editTextEmailorUsername.getText());
             String password = String.valueOf(editTextPassword.getText());
+            String date;
+            Date tempDate = new Date();
+            SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+            date = DateFor.format(tempDate);
 
             Map<String, Object> item = new HashMap<>();
             item.put("siteName", siteName);
             item.put("url", url);
             item.put("mailOrUsername", mailOrUsername);
             item.put("password", password);
+            item.put("creationDate", date);
 
             boolean inputValidated = validateUserInput(siteName, url, mailOrUsername, password);
+
             if (inputValidated) {
                 db.collection(username).document().set(item)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {

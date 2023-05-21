@@ -1,6 +1,6 @@
 package com.archers.passwordmanager;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,83 +9,71 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ViewItemFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class ViewItemFragment extends Fragment {
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ViewItemFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ViewItem.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ViewItemFragment newInstance(String param1, String param2) {
-        ViewItemFragment fragment = new ViewItemFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private VaultItem item;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            item = (VaultItem) getArguments().getSerializable("item");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView nameTV, userNameTV, passTV, domainTV;
-        Button passCopyBtn, editFloatingActionButton;
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view_item, container, false);
 
-        nameTV = view.findViewById(R.id.NameTV);
-        userNameTV = view.findViewById(R.id.UserNameTV);
-        passTV = view.findViewById(R.id.PassTV);
-        domainTV = view.findViewById(R.id.DomainTV);
-        editFloatingActionButton = view.findViewById(R.id.floatingActionButton);
+        TextView siteName = view.findViewById(R.id.siteName);
+        TextView emailOrUsername = view.findViewById(R.id.emailOrUsernameTV);
+        TextView passTV = view.findViewById(R.id.passTV);
+        TextView domainTV = view.findViewById(R.id.domainTV);
+        MaterialButton passCopyBtn = view.findViewById(R.id.PassCopyBtn);
+
+        // Set the text of the TextViews to the values of the VaultItem object
+        siteName.setText(item.getSiteName());
+        emailOrUsername.setText(item.getMailOrUsername());
+        passTV.setText(item.getPassword());
+        domainTV.setText(item.getUrl());
+
+        passCopyBtn.setOnClickListener((v) -> {
+            setClipboard(getContext(), String.valueOf(passTV.getText()));
+        });
+
+        FloatingActionButton editFloatingActionButton = view.findViewById(R.id.floatingActionButton);
 
         editFloatingActionButton.setOnClickListener((v) -> {
             Fragment fragment = new EditItemFragment();
-            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, fragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("item", item);
+            fragment.setArguments(bundle);
+            showFragment(fragment);
         });
 
-//        passCopyBtn.setOnClickListener((v) -> {
-//
-//        });
         return view;
+    }
+
+    private void setClipboard(Context context, String text) {
+        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+        clipboard.setPrimaryClip(clip);
+    }
+
+    private void showFragment(Fragment addNewItemFragment) {
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, addNewItemFragment)
+                .addToBackStack(null)
+                .commit();
     }
 }

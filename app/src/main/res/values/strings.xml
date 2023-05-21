@@ -31,7 +31,7 @@
     <string name="please_enter_otp">Please enter the One Time Password (OTP) that was sent to your mobile number +971********.</string>
     <string name="verify">Verify</string>
     <string name="resend">Resend</string>
-    <string name="edtTxtUserName">Username</string>
+    <string name="edtTxtUserName">Email/ Username</string>
     <string name="PassET">Password</string>
     <string name="txtViewItem">The following are the information saved related to the selected account: You can edit them by selected the edit floating action located in the corner of the page.</string>
     <string name="save">Save</string>

@@ -20,7 +20,7 @@
 
 
     <TextView
-        android:id="@+id/NameTV"
+        android:id="@+id/siteName"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_below="@id/ViewMessageTV"
@@ -32,10 +32,10 @@
 
 
     <TextView
-        android:id="@+id/UserNameTV"
+        android:id="@+id/emailOrUsernameTV"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_below="@+id/NameTV"
+        android:layout_below="@+id/siteName"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
@@ -43,14 +43,15 @@
 
 
     <TextView
-        android:id="@+id/PassTV"
+        android:id="@+id/passTV"
         android:layout_width="255dp"
         android:layout_height="30dp"
-        android:layout_below="@+id/UserNameTV"
+        android:layout_below="@+id/emailOrUsernameTV"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="70dp"
         android:hint="@string/PassET"
+        android:inputType="textPassword"
         app:endIconMode="password_toggle" />
 
     <Button
@@ -58,16 +59,16 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="200dp"
-        android:layout_toEndOf="@id/PassTV"
+        android:layout_toEndOf="@id/passTV"
         android:background="#00191C1E"
         android:drawableBottom="@drawable/baseline_content_copy_24" />
 
 
     <TextView
-        android:id="@+id/DomainTV"
+        android:id="@+id/domainTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/PassTV"
+        android:layout_below="@+id/passTV"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
@@ -82,7 +83,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/delete_item"
         android:textColor="@android:color/holo_red_dark"
-        android:layout_below="@+id/DomainTV"
+        android:layout_below="@+id/domainTV"
         android:layout_centerHorizontal="true"
         />
 

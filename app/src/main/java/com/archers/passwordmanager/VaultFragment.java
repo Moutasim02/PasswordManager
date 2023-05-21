@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,8 +24,9 @@ import java.util.ArrayList;
 public class VaultFragment extends Fragment {
     FirebaseFirestore db;
     private ArrayList<VaultItem> vaultItems;
-    private String username, siteName, url, mailOrUsername, password;
+    private String username;
     private FirebaseAuth auth;
+
     public VaultFragment() {
     }
 
@@ -32,7 +34,6 @@ public class VaultFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = FirebaseFirestore.getInstance();
-        vaultItems = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         username = auth.getCurrentUser().getDisplayName();
     }
@@ -40,6 +41,8 @@ public class VaultFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        vaultItems = new ArrayList<>();
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_vault, container, false);
 
@@ -49,37 +52,48 @@ public class VaultFragment extends Fragment {
             showFragment(addNewItemFragment);
         });
 
-        db.collection(username)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Log.d(TAG, document.getId() + " => " + document.getData());
-//                                    document.getData().get("siteName")
-                            }
-                        } else {
-//                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-
         // Get the LinearLayout that will hold the vault items
         LinearLayout vaultLayout = view.findViewById(R.id.vaultLayout);
 
+        // Retrieve the vault items from Firestore
+        db.collection(username).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        VaultItem item = document.toObject(VaultItem.class);
+                        vaultItems.add(item);
+                    }
 
-        VaultItem item1 = new VaultItem("Item 1");
-        vaultItems.add(item1);
+                    // Add the vault items to the layout
+                    for (VaultItem item : vaultItems) {
+                        View itemLayout = inflater.inflate(R.layout.item_vault, vaultLayout, false);
+                        TextView itemName = itemLayout.findViewById(R.id.vaultItemName);
+                        TextView itemURL = itemLayout.findViewById(R.id.vaultItemDomain);
+                        TextView itemDate = itemLayout.findViewById(R.id.vaultItemDate);
 
-        for (VaultItem item : vaultItems) {
-            View itemLayout = inflater.inflate(R.layout.item_vault, vaultLayout, false);
-            TextView itemName = itemLayout.findViewById(R.id.vaultItemName);
-            TextView itemDate = itemLayout.findViewById(R.id.vaultItemDate);
-            itemName.setText(item.getSiteName());
-            itemDate.setText(item.getCreationDate());
-            vaultLayout.addView(itemLayout);
-        }
+                        itemName.setText(item.getSiteName());
+                        itemURL.setText(item.getUrl());
+                        itemDate.setText(item.getCreationDate());
+
+                        itemLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ViewItemFragment viewItemFragment = new ViewItemFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("item", item);
+                                viewItemFragment.setArguments(bundle);
+                                showFragment(viewItemFragment);
+                            }
+                        });
+
+                        vaultLayout.addView(itemLayout);
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Error getting documents: ", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         return view;
     }
@@ -88,6 +102,7 @@ public class VaultFragment extends Fragment {
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, addNewItemFragment)
+                .addToBackStack(null)
                 .commit();
     }
 }
