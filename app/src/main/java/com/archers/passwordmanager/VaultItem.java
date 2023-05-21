@@ -1,26 +1,23 @@
 package com.archers.passwordmanager;
 
-import android.icu.text.DateFormat;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class VaultItem {
-    private String name;
-    private String date;
+    private String siteName, url, creationDate;
 
-    public VaultItem(String name) {
-        this.name = name;
+    public VaultItem(String siteName) {
+        this.siteName = siteName;
     }
 
-    public String getName() {
-        return name;
+    public String getSiteName() {
+        return siteName;
     }
 
-    public String getDate() {
+    public String getCreationDate() {
         Date tempDate = new Date();
         SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
-        date = DateFor.format(tempDate);
-        return date;
+        creationDate = DateFor.format(tempDate);
+        return creationDate;
     }
 }

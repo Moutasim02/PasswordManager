@@ -20,9 +20,9 @@
     <string name="user_profile">User Profile</string>
     <string name="name_hint">Full Name</string>
     <string name="save_profile">Save Profile</string>
-    <string name="strItemName">Name</string>
+    <string name="strItemName">Site Name</string>
     <string name="url_hint">Domain</string>
-    <string name="strEmailHint">Email</string>
+    <string name="strEmailHint">Email or Username</string>
     <string name="strPasswordHint">Password</string>
     <string name="add_new_item">Add Item</string>
     <string name="full_name">Full Name</string>

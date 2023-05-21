@@ -1,5 +1,6 @@
 package com.archers.passwordmanager;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.slider.Slider;
 
@@ -38,9 +41,16 @@ public class GeneratorFragment extends Fragment {
         CheckBox symbols_checkbox = view.findViewById(R.id.symbols_checkbox);
         TextView passTxt = view.findViewById(R.id.password_text);
         TextView passLengthTxt = view.findViewById(R.id.length_text);
+        ImageButton passCopyBtn = view.findViewById(R.id.PassCopyBtn);
 
         Button generate_button = view.findViewById(R.id.generate_button);
 
+        passCopyBtn.setOnClickListener((v) -> {
+            if (!String.valueOf(passTxt.getText()).equals("Your password will appear here") && !String.valueOf(passTxt.getText()).equals("Invalid password configuration."))
+                setClipboard(getContext(), String.valueOf(passTxt.getText()));
+            else
+                Toast.makeText(getContext(), "Generate Password First!", Toast.LENGTH_SHORT).show();
+        });
 
        slider.addOnChangeListener(new Slider.OnChangeListener() {
            @Override
@@ -65,5 +75,9 @@ public class GeneratorFragment extends Fragment {
         return view;
     }
 
-
+    private void setClipboard(Context context, String text) {
+        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+        clipboard.setPrimaryClip(clip);
+    }
 }
