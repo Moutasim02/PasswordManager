@@ -1,6 +1,5 @@
 package com.archers.passwordmanager;
 
-import static android.content.ContentValues.TAG;
 import static android.widget.Toast.LENGTH_LONG;
 
 import androidx.annotation.NonNull;
@@ -8,7 +7,6 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,10 +27,7 @@ import java.util.Map;
 public class AddNewItemFragment extends Fragment {
     private FirebaseFirestore db;
     private FirebaseAuth auth;
-    // ToDo: Add item to FireStore
-    // Each User has a collection, item will be stored in a document.
-    // document contains fields, ex: email, name, pass, domain.
-    private String username;
+    private String userEmail;
     private TextInputEditText editTextAddName, editTextUrl, editTextEmailorUsername, editTextPassword;
 
     public AddNewItemFragment() {
@@ -44,7 +38,7 @@ public class AddNewItemFragment extends Fragment {
         super.onCreate(savedInstanceState);
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
-        username = auth.getCurrentUser().getDisplayName();
+        userEmail = auth.getCurrentUser().getEmail();
     }
 
     @Override
@@ -68,6 +62,14 @@ public class AddNewItemFragment extends Fragment {
             String url = String.valueOf(editTextUrl.getText());
             String mailOrUsername = String.valueOf(editTextEmailorUsername.getText());
             String password = String.valueOf(editTextPassword.getText());
+
+            try {
+                password = TextEncryption.encrypt(password);
+            } catch (Exception e) {
+                Toast.makeText(getContext(), "Error while encrypting your password!", Toast.LENGTH_SHORT).show();
+                throw new RuntimeException(e);
+            }
+
             String date;
             Date tempDate = new Date();
             SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
@@ -83,7 +85,7 @@ public class AddNewItemFragment extends Fragment {
             boolean inputValidated = validateUserInput(siteName, url, mailOrUsername, password);
 
             if (inputValidated) {
-                db.collection(username).document().set(item)
+                db.collection(userEmail).document().set(item)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

@@ -2,14 +2,12 @@ package com.archers.passwordmanager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         searchItem = topAppBar.getMenu().findItem(R.id.search);
         syncItem = topAppBar.getMenu().findItem(R.id.sync);
 
-        // Default Fragment Injector
+        // Default Fragment Injection
         Fragment dynamicFragment = new VaultFragment();
         showFragment(dynamicFragment);
 

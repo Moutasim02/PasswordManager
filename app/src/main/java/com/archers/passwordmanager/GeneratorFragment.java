@@ -46,18 +46,21 @@ public class GeneratorFragment extends Fragment {
         Button generate_button = view.findViewById(R.id.generate_button);
 
         passCopyBtn.setOnClickListener((v) -> {
-            if (!String.valueOf(passTxt.getText()).equals("Your password will appear here") && !String.valueOf(passTxt.getText()).equals("Invalid password configuration."))
-                setClipboard(getContext(), String.valueOf(passTxt.getText()));
-            else
+            if (!String.valueOf(passTxt.getText()).equals("Your password will appear here") && !String.valueOf(passTxt.getText()).equals("Invalid password configuration.")) {
+               if (getContext() != null)
+                    setClipboard(getContext(), String.valueOf(passTxt.getText()));
+                Toast.makeText(getContext(), "Copied to clipboard", Toast.LENGTH_SHORT).show();
+            } else {
                 Toast.makeText(getContext(), "Generate Password First!", Toast.LENGTH_SHORT).show();
+            }
         });
 
-       slider.addOnChangeListener(new Slider.OnChangeListener() {
-           @Override
-           public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-               passLengthTxt.setText(String.valueOf((int) value));
-           }
-       });
+        slider.addOnChangeListener(new Slider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                passLengthTxt.setText(String.valueOf((int) value));
+            }
+        });
 
         generate_button.setOnClickListener((v) -> {
             int passLength = (int) slider.getValue();

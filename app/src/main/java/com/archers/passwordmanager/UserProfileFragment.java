@@ -63,7 +63,8 @@ public class UserProfileFragment extends Fragment {
             }
 
             if (String.valueOf(editTextCurrentPassword.getText()).equals(String.valueOf(editTextNewPassword.getText()))) {
-                Toast.makeText(getContext(), "Same Password!", Toast.LENGTH_SHORT).show();
+                if (!String.valueOf(editTextCurrentPassword.getText()).isEmpty() && !String.valueOf(editTextNewPassword.getText()).isEmpty())
+                    Toast.makeText(getContext(), "Same Password!", Toast.LENGTH_SHORT).show();
             } else if (editTextCurrentPassword.getText().length() != 0 && editTextNewPassword.getText().length() != 0) {
                 user.updatePassword(String.valueOf(editTextNewPassword.getText()));
                 Toast.makeText(getContext(), "Password Updated!", Toast.LENGTH_SHORT).show();

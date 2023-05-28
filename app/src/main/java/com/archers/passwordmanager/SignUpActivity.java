@@ -1,6 +1,5 @@
 package com.archers.passwordmanager;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -87,28 +86,44 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void createUserAccount(String email, String password) {
 
-        // Create a new user with the email and password
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUpActivity.this, task -> {
+        String username = String.valueOf(usernameTextField.getEditText().getText());
 
+        // Check if the email already exists in the FirebaseAuthentication service
+        auth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                // Sign in success, update UI with the signed-in user's information
-                FirebaseUser user = auth.getCurrentUser(); // used to make specific user profile and data
-                UserProfileChangeRequest upc = new UserProfileChangeRequest.Builder()
-                        .setDisplayName(String.valueOf(usernameTextField.getEditText().getText())).build();
-                user.updateProfile(upc);
+                boolean isNewUser = task.getResult().getSignInMethods().isEmpty();
+                if (isNewUser) {
+                    // Create a new user with the email and password
+                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUpActivity.this, task2 -> {
 
-                Toast.makeText(SignUpActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
-                // TODO: Add code to update the UI or navigate to the next screen
-                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                        if (task2.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = auth.getCurrentUser(); // used to make specific user profile and data
+                            UserProfileChangeRequest upc = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(username).build();
+                            user.updateProfile(upc);
 
-                if (user != null) {
-                    intent.putExtra("userMail", user.getEmail());
+                            Toast.makeText(SignUpActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                            // TODO: Add code to update the UI or navigate to the next screen
+                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+
+                            if (user != null) {
+                                intent.putExtra("userMail", user.getEmail());
+                            }
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(SignUpActivity.this, "Sign up failed: " + task2.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    // Email already exists
+                    emailTextField.setError("Email already exists");
                 }
-                startActivity(intent);
-                finish();
             } else {
-                // If sign in fails, display a message to the user.
-                Toast.makeText(SignUpActivity.this, "Sign up failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                // Error occurred while checking if the email exists
+                Toast.makeText(SignUpActivity.this, "Error occurred while checking if the email exists", Toast.LENGTH_SHORT).show();
             }
         });
     }
